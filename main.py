@@ -4,13 +4,6 @@ Elisabeth Kollrack
 Scheduling Conflict Program for TC
 """
 
-import pandas as pd
-
-df = pd.read_csv('/Users/elisabethkollrack/Tutoring/enrollment_f24.csv')
-
-
-filtered_selected_df = df.loc[(df[' Subj'] == 'CHEM') & (df['#'] == '1400') & (df['Lec Lab'] == 'LEC'), [' Subj', '#', 'Title', 'Sec', 'Start Time', 'End Time']]
-
 
 def check_conflict(tutor_schedule, lecture_schedule):
     conflicts = []
@@ -22,10 +15,22 @@ def check_conflict(tutor_schedule, lecture_schedule):
                 conflicts.append((tutor_slot, lecture_slot))
     return conflicts
 
+
+def time_conversion(time):
+    (h, m) = time.split(':')
+    result = int(h) + (int(m) / 60)
+    return result
+
+time = "09:00"
+
+print(time_conversion(time))
+
+
 # Test schedules
-tutor_schedule = [(8, 9), (12, 13)]
+tutor_schedule = [(8.5, 9.3333), (12, 13)]
 lecture_schedule = [(8, 10), (12,14),(15,16)]
 
+tutoring_times = input("Enter your tutoring times in the format hh:mm: ")
 
 has_conflict = check_conflict(tutor_schedule, lecture_schedule)
 if has_conflict:
