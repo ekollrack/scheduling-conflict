@@ -6,6 +6,8 @@ and checks for scheduling conflicts
 """
 
 
+import csv
+
 """
 Inputs: Tutor and lecture schedules
 Outputs: a list of conflicting times
