@@ -63,19 +63,18 @@ def reverse_time_conversion(decimal_time):
     minutes = int((decimal_time - hours) * 60)
     return f"{hours:02}:{minutes:02}"
 
+
 # TODO
 # input the lecture schedules into the program via CSV file,
 # input validation
 
 
 if __name__ == "__main__":
-    lecture_schedule = [(13,14),(3,5)]
+    lecture_schedule = [(13,15),(3,5)]
 
     # lecture_choice = input(f"Which class would you like to check for conflicts? ")
     user_input = input("Enter your tutoring times in the format hh:mm - hh:mm, hh:mm - hh:mm:\nex: 13:00-14:00, 09:45-11:30\n")
     tutoring_schedule = convert_tutoring_times(user_input)
-
-    print(f"Tutor's Schedule: {tutoring_schedule}" )
 
 
 
@@ -83,9 +82,10 @@ if __name__ == "__main__":
     # Check for conflicts and print the results
     has_conflict = check_conflict(tutoring_schedule, lecture_schedule)
     if has_conflict:
-        for tutor_slot, lecture_slot in has_conflict:
-            print(f"Scheduling conflict detected between tutor slot {tutor_slot} and lecture slot {lecture_slot}")
+        for (tutor_start, tutor_end), (lecture_start, lecture_end) in has_conflict:
+            print(f"Conflict: Tutor slot {reverse_time_conversion(tutor_start)}-"
+                  f"{reverse_time_conversion(tutor_end)} and Lecture slot "
+                  f"{reverse_time_conversion(lecture_start)}-"
+                  f"{reverse_time_conversion(lecture_end)}")
     else:
         print("No scheduling conflict.")
-
-
