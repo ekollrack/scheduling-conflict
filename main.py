@@ -102,7 +102,7 @@ def lectures_data_frame(name,number):
 
 # TODO
 # Remove duplicate tuples
-# Maybe make function like convert tutoring times for lecture times lines 96-100
+# Function for check conflict
 # Input validation
 # Days of the week
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     # Finds the class in the enrollment dataset
     lecture_data = lectures_data_frame(class_choice,class_number)
-    # Finds the lecture times
+    # Finds the lecture times and adds to lecture schedule
     lecture_schedule = convert_lecture_times(lecture_data)
 
     # Check for conflicts and print the results
