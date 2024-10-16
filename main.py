@@ -57,6 +57,20 @@ def convert_tutoring_times(user_input):
 
 
 """
+Inputs: List of lecture times for the specified class
+Outputs: The list of times in decimal format
+Effects: Converts inputted list of times to a decimal format
+"""
+def convert_lecture_times(lec_df):
+    lecture_schedule = []
+    for start, end in lec_df[['Start Time', 'End Time']].values:
+        converted_start = time_conversion(start)
+        converted_end = time_conversion(end)
+        lecture_schedule.append((converted_start, converted_end))
+    return lecture_schedule
+
+
+"""
 Inputs: Decimal time
 Outputs: The time in hh:mm format
 Effects: Converts decimal time back to normal time format
@@ -71,6 +85,21 @@ def reverse_time_conversion(decimal_time):
         minutes = 0
     return f"{hours:02}:{minutes:02}"
 
+
+"""
+Inputs: Class description
+Outputs: Data frame of class information
+Effects: Creates a data frame from enrollment data
+"""
+def lectures_data_frame(name,number):
+    df = pd.read_csv('enrollment_f24.csv')
+    df = df[[' Subj','#','Start Time', 'End Time', 'Lec Lab', 'Days']]
+    df = df[(df[' Subj'] == name) &
+           (df['Lec Lab'] == 'LEC') &
+           (df['Start Time'] != 'Nan') &
+           (df['#'] == number)]
+    return df
+
 # TODO
 # Remove duplicate tuples
 # Maybe make function like convert tutoring times for lecture times lines 96-100
@@ -84,21 +113,11 @@ if __name__ == "__main__":
     class_choice = input("Which class would you like to schedule conflicts for? Enter course abbreviation e.g. 'CHEM'\n").upper()
     class_number = input("What is the course number? e.g 1400\n")
 
-    # Formulate data frame of lecture times
-    df = pd.read_csv('enrollment_f24.csv')
-    df = df[[' Subj','#','Start Time', 'End Time', 'Lec Lab', 'Days']]
-    x = df[(df[' Subj'] == class_choice) &
-           (df['Lec Lab'] == 'LEC') &
-           (df['Start Time'] != 'Nan') &
-           (df['#'] == class_number)]
 
-    # Makes a list of the start and end times from the lecture schedule data frame
-    lecture_schedule = []
-    for start, end in x[['Start Time', 'End Time']].values:
-        converted_start = time_conversion(start)
-        converted_end = time_conversion(end)
-        lecture_schedule.append((converted_start, converted_end))
-
+    # Finds the class in the enrollment dataset
+    lecture_data = lectures_data_frame(class_choice,class_number)
+    # Finds the lecture times
+    lecture_schedule = convert_lecture_times(lecture_data)
 
     # Check for conflicts and print the results
     has_conflict = check_conflict(tutoring_schedule, lecture_schedule)
