@@ -1,10 +1,16 @@
-
 """
 Elisabeth Kollrack
-Scheduling Conflict Program for TC
+Scheduling Conflict Program
+Takes input about which class they tutor for and which times they are scheduled for
+and checks for scheduling conflicts
 """
 
 
+"""
+Inputs: Tutor and lecture schedules
+Outputs: a list of conflicting times
+Effects: Checks for overlap between the tutor's schedule and lecture times
+"""
 def check_conflict(tutor_schedule, lecture_schedule):
     conflicts = []
     for tutor_slot in tutor_schedule:
@@ -16,27 +22,70 @@ def check_conflict(tutor_schedule, lecture_schedule):
     return conflicts
 
 
+"""
+Inputs: Time in military time
+Outputs: The time in decimal format
+Effects: Converts inputted time to a decimal format
+"""
 def time_conversion(time):
     (h, m) = time.split(':')
     result = int(h) + (int(m) / 60)
     return result
 
-time = "09:00"
 
-print(time_conversion(time))
+"""
+Inputs: List of times the user inputted 
+Outputs: The list of times in decimal format
+Effects: Converts inputted list of times to a decimal format
+"""
+def convert_tutoring_times(user_input):
+    tutoring_times = []
+    converted_tutoring_times = []
+    # This for loop formats times as [(time 1: time 2),(time 3: time 4)]
+    for t in user_input.split(','):
+        start, end = t.split('-')
+        tutoring_times.append((start, end))
+    # This for loop formats times as [(time 1, time 2),(time 3, time 4)]
+    for start, end in tutoring_times:
+        converted_start = time_conversion(start)
+        converted_end = time_conversion(end)
+        converted_tutoring_times.append((converted_start, converted_end))
+    return converted_tutoring_times
 
 
-# Test schedules
-tutor_schedule = [(8.5, 9.3333), (12, 13)]
-lecture_schedule = [(8, 10), (12,14),(15,16)]
+"""
+Inputs: Decimal time
+Outputs: The time in hh:mm format
+Effects: Converts decimal time back to normal time format
+"""
+def reverse_time_conversion(decimal_time):
+    hours = int(decimal_time)
+    minutes = int((decimal_time - hours) * 60)
+    return f"{hours:02}:{minutes:02}"
 
-tutoring_times = input("Enter your tutoring times in the format hh:mm: ")
+# TODO
+# input the lecture schedules into the program via CSV file,
+# input validation
 
-has_conflict = check_conflict(tutor_schedule, lecture_schedule)
-if has_conflict:
-    for tutor_slot, lecture_slot in has_conflict:
-        print(f"Scheduling conflict detected between tutor slot {tutor_slot} and lecture slot {lecture_slot}")
-else:
-    print("No scheduling conflict.")
+
+if __name__ == "__main__":
+    lecture_schedule = [(13,14),(3,5)]
+
+    # lecture_choice = input(f"Which class would you like to check for conflicts? ")
+    user_input = input("Enter your tutoring times in the format hh:mm - hh:mm, hh:mm - hh:mm:\nex: 13:00-14:00, 09:45-11:30\n")
+    tutoring_schedule = convert_tutoring_times(user_input)
+
+    print(f"Tutor's Schedule: {tutoring_schedule}" )
+
+
+
+
+    # Check for conflicts and print the results
+    has_conflict = check_conflict(tutoring_schedule, lecture_schedule)
+    if has_conflict:
+        for tutor_slot, lecture_slot in has_conflict:
+            print(f"Scheduling conflict detected between tutor slot {tutor_slot} and lecture slot {lecture_slot}")
+    else:
+        print("No scheduling conflict.")
 
 
