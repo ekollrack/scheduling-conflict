@@ -4,7 +4,7 @@ day_mapping = {
     'M': 'Monday',
     'T': 'Tuesday',
     'W': 'Wednesday',
-    'TR': 'Thursday',
+    'R': 'Thursday',
     'F': 'Friday'
 }
 
@@ -80,10 +80,10 @@ if __name__ == "__main__":
     tutor_times = input(
         "Enter your tutoring times in the format hh:mm - hh:mm, hh:mm - hh:mm:\nex: 13:00-14:00, 09:45-11:30\n")
     tutor_date = input("What day are these times for (only enter 1 day please)? \n"
-                       "Enter 'M' for Monday, 'T' for Tuesday, 'W' for Wednesday, 'TR' for Thursday, 'F' for Friday \n")
+                       "Enter 'M' for Monday, 'T' for Tuesday, 'W' for Wednesday, 'R' for Thursday, 'F' for Friday \n")
 
     while tutor_date not in day_mapping:
-        tutor_date = input("Invalid input. Please enter 'M', 'T', 'W', 'TR', or 'F': ")
+        tutor_date = input("Invalid input. Please enter 'M', 'T', 'W', 'R', or 'F': ")
 
     tutoring_schedule = convert_tutoring_times(tutor_times)
 
