@@ -1,4 +1,7 @@
 import pandas as pd
+# TODO
+# change time format
+# add multiple classes
 
 day_mapping = {
     'M': 'Monday',
