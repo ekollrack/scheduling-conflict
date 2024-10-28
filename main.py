@@ -1,6 +1,5 @@
 import pandas as pd
 # TODO
-# change time format
 # add multiple classes
 
 day_mapping = {
@@ -83,11 +82,6 @@ def lectures_data_frame(name, number, day):
         converted_start = time_conversion(start)
         converted_end = time_conversion(end)
         schedule.append((converted_start, converted_end))
-
-    # Print converted times for verification
-    print("Lecture Schedule (12-hour format):")
-    print(df[['Start Time', 'End Time']])
-
     return schedule
 
 
@@ -111,3 +105,5 @@ if __name__ == "__main__":
 
     # Check for conflicts
     check_conflict(tutoring_schedule, lecture_schedule, tutor_date)
+
+# take in time, convert to military, check for conflicts, convert back to decimal
