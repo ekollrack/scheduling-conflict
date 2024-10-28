@@ -1,7 +1,13 @@
+"""
+Elisabeth Kollrack
+Scheduling Conflict Program
+"""
+#TODO
+# Documentation for functions
+# README with instructions on how to run
+# Allow for multiple classes to be entered at once
+
 import pandas as pd
-# TODO
-# change time format
-# add multiple classes
 
 day_mapping = {
     'M': 'Monday',
@@ -31,21 +37,24 @@ def check_conflict(tutor, lecture, day):
         print("No scheduling conflict.")
 
 
-def time_conversion(time):
-    (h, m) = time.split(':')
-    result = int(h) + (int(m) / 60)
-    return result
+def time_conversion(time, am_pm=None):
+    (h, m) = map(int, time.split(':'))
+    if am_pm and am_pm.lower() == 'pm' and h != 12:
+        h += 12
+    elif am_pm and am_pm.lower() == 'am' and h == 12:
+        h = 0
+    return h + (m / 60)
 
 
-def convert_tutoring_times(times):
+def convert_tutoring_times(times, am_pm):
     tutoring_times = []
     converted_tutoring_times = []
     for t in times.split(','):
         start, end = t.split('-')
         tutoring_times.append((start.strip(), end.strip()))
     for start, end in tutoring_times:
-        converted_start = time_conversion(start)
-        converted_end = time_conversion(end)
+        converted_start = time_conversion(start, am_pm)
+        converted_end = time_conversion(end, am_pm)
         converted_tutoring_times.append((converted_start, converted_end))
     return converted_tutoring_times
 
@@ -57,7 +66,17 @@ def reverse_time_conversion(decimal_time):
     if minutes == 60:
         hours += 1
         minutes = 0
-    return f"{hours:02}:{minutes:02}"
+
+    if hours > 12:
+        am_pm = "PM"
+        hours -= 12
+    else:
+        am_pm = "AM"
+
+    if hours == 0:
+        hours = 12
+
+    return f"{hours:02}:{minutes:02} {am_pm}"
 
 
 def lectures_data_frame(name, number, day):
@@ -81,17 +100,21 @@ def lectures_data_frame(name, number, day):
 
 if __name__ == "__main__":
     tutor_times = input(
-        "Enter your tutoring times in the format hh:mm - hh:mm, hh:mm - hh:mm:\nex: 13:00-14:00, 09:45-11:30\n")
+        "Enter your tutoring times in the format hh:mm-hh:mm, hh:mm-hh:mm:\n")
+
+    am_pm = input("Is your time AM/PM? (Enter 'AM' or 'PM')\n").strip().upper()
+
     tutor_date = input("What day are these times for (only enter 1 day please)? \n"
-                       "Enter 'M' for Monday, 'T' for Tuesday, 'W' for Wednesday, 'R' for Thursday, 'F' for Friday \n")
+                       "Enter 'M' for Monday, 'T' for Tuesday, 'W' for Wednesday, 'R' for Thursday, 'F' for Friday \n").strip().upper()
 
     while tutor_date not in day_mapping:
-        tutor_date = input("Invalid input. Please enter 'M', 'T', 'W', 'R', or 'F': ")
+        tutor_date = input("Invalid input. Please enter 'M', 'T', 'W', 'R', or 'F': ").strip().upper()
 
-    tutoring_schedule = convert_tutoring_times(tutor_times)
+
+    tutoring_schedule = convert_tutoring_times(tutor_times, am_pm)
 
     class_choice = input(
-        "Which class would you like to schedule conflicts for? Enter course abbreviation e.g. 'CHEM'\n").upper()
+        "Which class would you like to schedule conflicts for? Enter course abbreviation e.g. 'CHEM'\n").strip().upper()
     class_number = input("What is the course number? e.g 1400\n")
 
     # Finds the lecture times and adds to lecture schedule
@@ -99,5 +122,3 @@ if __name__ == "__main__":
 
     # Check for conflicts
     check_conflict(tutoring_schedule, lecture_schedule, tutor_date)
-
-# take in time, convert to military, check for conflicts, convert back to decimal
