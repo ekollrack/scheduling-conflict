@@ -15,17 +15,18 @@ day_mapping = {
     'F': 'Friday'
 }
 
+
+"""
+Converts time from 'HH:MM' format to total minutes from midnight.
+
+Parameters:
+    time (str): The time in 'HH:MM' format.
+    am_pm (str, optional): 'AM' or 'PM' for 12-hour format conversion.
+
+Returns:
+    int: Total minutes from midnight.
+"""
 def time_conversion(time, am_pm=None):
-    """
-    Converts time from 'HH:MM' format to total minutes from midnight.
-
-    Parameters:
-        time (str): The time in 'HH:MM' format.
-        am_pm (str, optional): 'AM' or 'PM' for 12-hour format conversion.
-
-    Returns:
-        int: Total minutes from midnight.
-    """
     h, m = map(int, time.split(':'))
 
     if am_pm:  # Convert 12-hour format to 24-hour
@@ -36,16 +37,17 @@ def time_conversion(time, am_pm=None):
 
     return h * 60 + m
 
+
+"""
+Converts total minutes from midnight back to 'HH:MM AM/PM' format.
+
+Parameters:
+    total_minutes (int): The total minutes from midnight.
+
+Returns:
+    str: The time in 'HH:MM AM/PM' format.
+"""
 def reverse_time_conversion(total_minutes):
-    """
-    Converts total minutes from midnight back to 'HH:MM AM/PM' format.
-
-    Parameters:
-        total_minutes (int): The total minutes from midnight.
-
-    Returns:
-        str: The time in 'HH:MM AM/PM' format.
-    """
     hours = total_minutes // 60
     minutes = total_minutes % 60
 
@@ -57,16 +59,17 @@ def reverse_time_conversion(total_minutes):
 
     return f"{hours:02}:{minutes:02} {am_pm}"
 
+
+"""
+Converts a string of tutoring time slots into tuples of start and end times in minutes.
+
+Parameters:
+    times (str): A string of tutoring times formatted as 'hh:mm AM/PM-hh:mm AM/PM'.
+
+Returns:
+    list: A list of tuples, each containing start and end times in minutes.
+"""
 def convert_tutoring_times(times):
-    """
-    Converts a string of tutoring time slots into tuples of start and end times in minutes.
-
-    Parameters:
-        times (str): A string of tutoring times formatted as 'hh:mm AM/PM-hh:mm AM/PM'.
-
-    Returns:
-        list: A list of tuples, each containing start and end times in minutes.
-    """
     tutoring_times = []
     for t in times.split(','):
         start, end = t.split('-')
@@ -79,18 +82,19 @@ def convert_tutoring_times(times):
         tutoring_times.append((start_minutes, end_minutes))
     return tutoring_times
 
+
+"""
+Extracts the lecture schedule for a specific course and day from a CSV file.
+
+Parameters:
+    name (str): The course abbreviation (e.g., 'CHEM').
+    number (str): The course number (e.g., '1400').
+    day (str): The day of the week to check (e.g., 'M' for Monday).
+
+Returns:
+    list: A list of tuples containing start and end times of lectures in minutes.
+"""
 def lectures_data_frame(name, number, day):
-    """
-    Extracts the lecture schedule for a specific course and day from a CSV file.
-
-    Parameters:
-        name (str): The course abbreviation (e.g., 'CHEM').
-        number (str): The course number (e.g., '1400').
-        day (str): The day of the week to check (e.g., 'M' for Monday).
-
-    Returns:
-        list: A list of tuples containing start and end times of lectures in minutes.
-    """
     df = pd.read_csv('enrollment_f24.csv')
     df = df[[' Subj', '#', 'Start Time', 'End Time', 'Lec Lab', 'Days']]
 
@@ -109,15 +113,16 @@ def lectures_data_frame(name, number, day):
 
     return schedule
 
-def check_conflict(tutor, lecture, day):
-    """
-    Checks for scheduling conflicts between tutoring slots and lecture times.
 
-    Parameters:
-        tutor (list): A list of tuples representing tutoring time slots in minutes.
-        lecture (list): A list of tuples representing lecture time slots in minutes.
-        day (str): The day for which conflicts are checked.
-    """
+"""
+Checks for scheduling conflicts between tutoring slots and lecture times.
+
+Parameters:
+    tutor (list): A list of tuples representing tutoring time slots in minutes.
+    lecture (list): A list of tuples representing lecture time slots in minutes.
+    day (str): The day for which conflicts are checked.
+"""
+def check_conflict(tutor, lecture, day):
     conflicts = set()
     for tutor_start, tutor_end in tutor:
         for lecture_start, lecture_end in lecture:
@@ -164,7 +169,6 @@ if __name__ == "__main__":
 
     # Convert tutoring times to minutes
     tutoring_schedule = convert_tutoring_times(tutor_times)
-
 
     while True:
         class_choice = input("Enter course abbreviation (e.g., 'CHEM'): ").strip().upper()
