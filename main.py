@@ -165,28 +165,17 @@ if __name__ == "__main__":
     # Convert tutoring times to minutes
     tutoring_schedule = convert_tutoring_times(tutor_times)
 
-    # User input for number of classes to check
+
     while True:
-        try:
-            class_count = int(input("How many classes would you like to check? "))
-            if class_count > 0:  # Ensure at least one class is checked
-                break
-            else:
-                print("Please enter a positive integer.")
-        except ValueError:
-            print("Invalid input. Please enter a number.")
+        class_choice = input("Enter course abbreviation (e.g., 'CHEM'): ").strip().upper()
+        class_number = input("Enter course number (e.g., 1400): ").strip()
 
-    for _ in range(class_count):
-        while True:
-            class_choice = input("Enter course abbreviation (e.g., 'CHEM'): ").strip().upper()
-            class_number = input("Enter course number (e.g., 1400): ").strip()
+        # Extract lecture schedule and check for conflicts
+        lecture_schedule = lectures_data_frame(class_choice, class_number, tutoring_day)
+        print(f"Checking conflicts for {class_choice} {class_number}...")
+        check_conflict(tutoring_schedule, lecture_schedule, tutoring_day)
 
-            # Extract lecture schedule and check for conflicts
-            lecture_schedule = lectures_data_frame(class_choice, class_number, tutoring_day)
-            print(f"Checking conflicts for {class_choice} {class_number}...")
-            check_conflict(tutoring_schedule, lecture_schedule, tutoring_day)
-
-            # Ask if the user wants to check another class
-            another_class = input("Would you like to check another class? (yes/no): ").strip().lower()
-            if another_class not in ('yes', 'y'):
-                break  # Exit loop if user doesn't want to check another class
+        # Ask if the user wants to check another class
+        another_class = input("Would you like to check another class? (yes/no): ").strip().lower()
+        if another_class not in ('yes', 'y'):
+            break  # Exit loop if user doesn't want to check another class
