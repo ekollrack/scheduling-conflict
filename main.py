@@ -99,9 +99,11 @@ def lectures_data_frame(name, number, day):
     df = df[[' Subj', '#', 'Start Time', 'End Time', 'Lec Lab', 'Days']]
 
     # Filter by course abbreviation and number
-    filtered = df[(df[' Subj'].str.strip().str.upper() == name) &
-                  (df['#'].astype(str).str.strip() == str(number)) &
-                  (df['Lec Lab'] == 'LEC')]
+    filtered = df[
+        (df[' Subj'].str.strip().str.upper() == name) &
+        (df['#'].astype(str).str.strip() == str(number)) &
+        ((df['Lec Lab'] == 'LEC') | (df['Lec Lab'] == "LCDS") | (df['Lec Lab'] == "LCLB") | (df['Lec Lab'] == "ONL") | (df['Lec Lab'] == "DIS"))
+        ]
 
     schedule = []
     for _, row in filtered.iterrows():
