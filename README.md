@@ -2,8 +2,10 @@
 ## Developed for the University of Vermont Tutoring Center
 
 #### Program Description
+This is a program that will cross reference a tutor's schedule with the lecture times for the classes they tutor for. 
 
 #### How To Run:
+
 
 #### Changes Required Each Semester:
 
