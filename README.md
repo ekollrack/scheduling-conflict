@@ -16,5 +16,6 @@ The university's schedule csv file must be updated each semester. To do this, do
 Please reach out with any questions.
 
 Author: Elisabeth Kollrack
-Email: elisabethkollrack@gmail.com
+
+elisabethkollrack@gmail.com
 
