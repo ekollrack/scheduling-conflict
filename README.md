@@ -25,7 +25,6 @@ This Python program checks for scheduling conflicts between tutoring times and l
 
 #### PyCharm (free with educational license)
 1. Open PyCharm and the project containing main.py.
-   - Either download the github code to your computer
 2. Ensure the enrollment_f24.csv file is in the same directory as main.py.
 3. Run the program by selecting the play button in the upper right corner
 
