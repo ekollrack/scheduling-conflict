@@ -7,7 +7,7 @@ This Python program checks for scheduling conflicts between tutoring times and l
 ### Features
 - **User Input**: Enter multiple tutoring slots in `hh:mm AM/PM-hh:mm AM/PM` format, separated by commas.
 - **Conflict Detection**: Compares tutoring times with course lecture times for potential conflicts.
-- **Flexible Day Selection**: Users select the day (Monday through Friday) to match with lecture schedules.
+- **Flexible Day Selection**: Users select the day (Monday through Friday) to match with lecture schedules. ***Note*** that you can only enter 1 day a week per run of the program.
 - **Multiple Course Checking**: Check conflicts for more than one course in a single session.
 
 ### Requirements
