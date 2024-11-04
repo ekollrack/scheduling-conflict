@@ -24,22 +24,39 @@ The Scheduling Conflict Program is a Python tool designed to help tutors at the 
 
 ### Sample Run
 Enter your tutoring times in the format hh:mm AM/PM-hh:mm AM/PM, separated by commas for multiple slots:
+
 10:00 AM-11:00 AM, 01:00 PM-02:00 PM
+
 What day are these times for (only enter 1 day)?
+
 Enter 'M' for Monday, 'T' for Tuesday, 'W' for Wednesday, 'R' for Thursday, 'F' for Friday:
+
 M
+
 Enter course abbreviation (e.g., 'CHEM'): CHEM
+
 Enter course number (e.g., 1400): 1400
+
 Checking conflicts for CHEM 1400...
+
 Conflict: Tutor slot 01:00 PM-02:00 PM and Lecture slot 01:10 PM-02:00 PM on Monday
+
 Conflict: Tutor slot 10:00 AM-11:00 AM and Lecture slot 10:50 AM-11:40 AM on Monday
+
 Would you like to check another class? (yes/no): yes
+
 Enter course abbreviation (e.g., 'CHEM'): MATH
+
 Enter course number (e.g., 1400): 1234
+
 Checking conflicts for MATH 1234...
+
 Conflict: Tutor slot 01:00 PM-02:00 PM and Lecture slot 01:10 PM-02:00 PM on Monday
+
 Conflict: Tutor slot 10:00 AM-11:00 AM and Lecture slot 09:40 AM-10:30 AM on Monday
+
 Conflict: Tutor slot 10:00 AM-11:00 AM and Lecture slot 10:50 AM-11:40 AM on Monday
+
 Would you like to check another class? (yes/no): n
 
 
