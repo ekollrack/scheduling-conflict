@@ -95,7 +95,7 @@ Returns:
     list: A list of tuples containing start and end times of lectures in minutes.
 """
 def lectures_data_frame(name, number, day):
-    df = pd.read_csv('enrollment_f24.csv')
+    df = pd.read_csv('enrollment.csv')
     df = df[[' Subj', '#', 'Start Time', 'End Time', 'Lec Lab', 'Days']]
 
     # Filter by course abbreviation and number
