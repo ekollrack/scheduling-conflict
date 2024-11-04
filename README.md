@@ -6,6 +6,12 @@ This is a program that will cross reference a tutor's schedule with the lecture 
 
 #### How To Run:
 
+Terminal:
+
+PyCharm (free with educational license):
+
+VSCode:
+
 
 #### Changes Required Each Semester:
 
