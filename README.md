@@ -11,13 +11,6 @@ The Scheduling Conflict Program is a Python tool designed to help tutors at the 
 
 ### How To Run
 
-#### Running from the Terminal
-1. Ensure Python 3 and the Pandas library are installed.
-2. Open a terminal, navigate to the directory containing `main.py`, and execute:
-
-   ```bash
-   python main.py
-
 #### PyCharm (free with educational license)
 1. Open PyCharm and the project containing main.py.
 2. Ensure the enrollment_f24.csv file is in the same directory as main.py.
